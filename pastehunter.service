@@ -1,0 +1,16 @@
+[Unit]
+Description=Paste Hunter
+Wants=network.target
+After=network.target
+
+[Service]
+ExecStart=/bin/bash -c "cd /opt/PasteHunter/ && /opt/wait-for-it/wait-for-it.sh  -t 0 127.0.0.1:9200 -- python3 pastehunter.py"
+ExecReload=on-failure
+Restart=always
+User=root
+Group=root
+StandardOutput=syslog
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target
